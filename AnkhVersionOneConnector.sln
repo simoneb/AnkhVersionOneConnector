@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{18592047-6879-4162-984C-4EE3CA018564}"
+	ProjectSection(SolutionItems) = preProject
+		AnkhSampleExtension.vsmdi = AnkhSampleExtension.vsmdi
+		IntegrationTests.testsettings = IntegrationTests.testsettings
+		UnitTests.testsettings = UnitTests.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkhVersionOneConnector", "AnkhVersionOneConnector\AnkhVersionOneConnector.csproj", "{26B4AD31-1CE0-4217-87B1-4475E994BB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkhVersionOneConnector_UnitTests", "AnkhVersionOneConnector\AnkhVersionOneConnector_UnitTests\AnkhVersionOneConnector_UnitTests.csproj", "{3E983317-8CEB-4862-A3AC-96E60D35C648}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkhVersionOneConnector_IntegrationTests", "AnkhVersionOneConnector\AnkhVersionOneConnector_IntegrationTests\AnkhVersionOneConnector_IntegrationTests.csproj", "{8AFC0B74-5FBE-45CC-A618-8FE0ED3AB29C}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = AnkhSampleExtension.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26B4AD31-1CE0-4217-87B1-4475E994BB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B4AD31-1CE0-4217-87B1-4475E994BB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B4AD31-1CE0-4217-87B1-4475E994BB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B4AD31-1CE0-4217-87B1-4475E994BB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E983317-8CEB-4862-A3AC-96E60D35C648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E983317-8CEB-4862-A3AC-96E60D35C648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E983317-8CEB-4862-A3AC-96E60D35C648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E983317-8CEB-4862-A3AC-96E60D35C648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AFC0B74-5FBE-45CC-A618-8FE0ED3AB29C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AFC0B74-5FBE-45CC-A618-8FE0ED3AB29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AFC0B74-5FBE-45CC-A618-8FE0ED3AB29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AFC0B74-5FBE-45CC-A618-8FE0ED3AB29C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
