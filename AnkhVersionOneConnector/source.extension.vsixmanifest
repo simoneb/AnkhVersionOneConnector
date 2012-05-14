@@ -21,7 +21,7 @@
     <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">
       <Name>Visual Studio MPF</Name>
     </Reference>
-    <Reference Id="AnkhSVN.2.0.604ad610-5cf9-4bd5-8acc-f49810e2efd4" MinVersion="2.3.10838.1211">
+    <Reference Id="AnkhSVN.2.0.604ad610-5cf9-4bd5-8acc-f49810e2efd4" MinVersion="2.1.7444.278">
       <Name>AnkhSVN - Subversion Support for Visual Studio</Name>
       <MoreInfoUrl>http://www.ankhsvn.net/</MoreInfoUrl>
     </Reference>
