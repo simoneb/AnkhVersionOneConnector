@@ -4,7 +4,7 @@
     <Name>AnkhSVN - VersionOne support for Visual Studio</Name>
     <Author>Simone Busoli</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">Provides issue tracking integration in Visual Studio for AnkhSVN</Description>
+    <Description xml:space="preserve">Provides VersionOne issue tracking integration in Visual Studio for AnkhSVN</Description>
     <Locale>1033</Locale>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
@@ -12,7 +12,6 @@
         <Edition>Ultimate</Edition>
         <Edition>Premium</Edition>
         <Edition>Pro</Edition>
-        <Edition>Express_All</Edition>
       </VisualStudio>
     </SupportedProducts>
     <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
