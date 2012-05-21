@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Impl\VersionOneConfigurationPagePresenter.cs" />
     <Compile Include="Impl\VersionOneRepository.cs" />
+    <Compile Include="Impl\VersionOneWorkItem.cs" />
     <Compile Include="Impl\WorkItemService.cs" />
     <Compile Include="ProvideIssueRepositoryConnectorAttribute.cs" />
     <Compile Include="Resources.Designer.cs">

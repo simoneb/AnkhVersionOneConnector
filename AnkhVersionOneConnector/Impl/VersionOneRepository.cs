@@ -22,7 +22,7 @@ namespace AnkhVersionOneConnector.Impl
         private readonly string _repositoryId;
         private readonly IDictionary<string, object> _customProperties;
         private IssuesListView _issueListView;
-        private V1Instance _instance;
+        private V1Instance _versionOne;
         private Task<WorkItemService> _getWorkItemService;
 
         public VersionOneRepository(Uri repositoryUri, string repositoryId, IDictionary<string, object> customProperties) : base(Constants.ConnectorName)
@@ -31,12 +31,7 @@ namespace AnkhVersionOneConnector.Impl
             _repositoryId = repositoryId;
             _customProperties = customProperties;
 
-            _getWorkItemService = Task.Factory.StartNew<WorkItemService>(CreateWorkItemService);
-        }
-
-        private WorkItemService CreateWorkItemService()
-        {
-            return new WorkItemService(V1Instance);
+            _getWorkItemService = Task.Factory.StartNew(() => new WorkItemService(VersionOne));
         }
 
         public static IssueRepository Create(IssueRepositorySettings settings)
@@ -55,23 +50,27 @@ namespace AnkhVersionOneConnector.Impl
             {
                 instance.Validate();
             }
-            catch (ApplicationUnavailableException e)
+            catch (ApplicationUnavailableException)
             {
-                MessageBox.Show(string.Format("VersionOne application is unavailable ({0})", _repositoryUri), "VersionOne application unavailable", MessageBoxButtons.OK,
+                MessageBox.Show(string.Format("VersionOne application is unavailable ({0})", _repositoryUri),
+                                "VersionOne unavailable",
+                                MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
-                return null;
+                throw;
             }
-            catch(AuthenticationException e)
+            catch(AuthenticationException)
             {
-                MessageBox.Show("Cannot authenticate to VersionOne instance with the credentials supplied", "VersionOne authentication error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
+                MessageBox.Show("Cannot authenticate to VersionOne instance with the credentials supplied",
+                                "VersionOne authentication error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                throw;
             }
 
             return instance;
         }
 
-        public V1Instance V1Instance { get { return _instance ?? (_instance = CreateVersionOneInstance()); } }
+        private V1Instance VersionOne { get { return _versionOne ?? (_versionOne = CreateVersionOneInstance()); } }
 
         public override Uri RepositoryUri
         {
@@ -105,11 +104,12 @@ namespace AnkhVersionOneConnector.Impl
         {
             base.PreCommit(args);
 
-            if(!IssuesListView.SelectedWorkItems.Any())
+            if(!IssuesListView.CheckedWorkItems.Any())
             {
-                MessageBox.Show("You must select at least one issue before you can commit your changes",
-                                "No issue selected",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You must select at least one item before you can commit your changes",
+                                "No selection",
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
 
                 args.Cancel = true;
 
@@ -118,17 +118,27 @@ namespace AnkhVersionOneConnector.Impl
 
             var commitMessage = new StringBuilder();
 
-            foreach (var issue in IssuesListView.SelectedWorkItems)
-                commitMessage.Append(issue.DisplayID).Append(" ");
+            foreach (var workItem in IssuesListView.CheckedWorkItems.SelectMany(Hierarchy).Distinct())
+                commitMessage.Append(workItem.DisplayId).Append(" ");
 
             commitMessage.Append(args.CommitMessage);
 
             args.CommitMessage = commitMessage.ToString();
         }
 
+        private static IEnumerable<VersionOneWorkItem> Hierarchy(VersionOneWorkItem root)
+        {
+            var originalRoot = root;
+
+            while (root.HasParent)
+                yield return root = root.Parent;
+
+            yield return originalRoot;
+        }
+
         public override void PostCommit(PostCommitArgs args)
         {
-            _issueListView.ClearSelection();
+            _issueListView.ClearCheckedWorkItems();
 
             base.PostCommit(args);
         }
@@ -137,7 +147,7 @@ namespace AnkhVersionOneConnector.Impl
         {
             if (!string.IsNullOrWhiteSpace(issueId))
             {
-                var url = V1Instance.Get.IssueByDisplayID(issueId).URL;
+                var url = VersionOne.Get.IssueByDisplayID(issueId).URL;
 
                 Process.Start(url);
             }

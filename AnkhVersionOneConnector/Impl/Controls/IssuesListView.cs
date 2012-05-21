@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using VersionOne.SDK.ObjectModel;
 using System.Linq;
 
 namespace AnkhVersionOneConnector.Impl.Controls
@@ -13,57 +12,83 @@ namespace AnkhVersionOneConnector.Impl.Controls
 	    public IssuesListView(WorkItemService workItemService) : this()
 	    {
 	        _workItemService = workItemService;
-	        _workItemService.WorkItemsLoaded += ReloadWorkItems;
 	    }
 
 	    public IssuesListView()
 		{
 			InitializeComponent();
+
+	        Load += LoadWorkItems;
 		}
 
-	    private void ReloadWorkItems(ICollection<Workitem> workItems)
+	    private void LoadWorkItems(object sender, EventArgs eventArgs)
 	    {
-	        var selection = SelectedWorkItems.Select(i => i.DisplayID).ToArray();
+	        RefreshTree(_workItemService.GetWorkItems());
+	    }
 
-	        _list.Items.Clear();
-	        _list.Items.AddRange(Convert(workItems));
+	    private static TreeNode[] GetAllNodes(IEnumerable<VersionOneWorkItem> workItems)
+	    {
+	        return workItems.Select(GetNode).ToArray();
+	    }
 
-	        foreach (var item in _list.Items.Cast<ListViewItem>().Join(selection, l => l.Text, s => s, (l, s) => l))
-	            item.Checked = true;
+	    private static TreeNode GetNode(VersionOneWorkItem wi)
+	    {
+	        return new TreeNode(string.Format("{0} - {1}", wi.DisplayId, wi.Name),
+	                            wi.Children.Select(c => new TreeNode(string.Format("{0} - {1}", c.DisplayId, c.Name)) {Tag = c}).ToArray()) {Tag = wi};
+	    }
+
+	    private void RefreshTree(ICollection<VersionOneWorkItem> workItems)
+	    {
+	        if (InvokeRequired)
+	            Invoke(new Action<ICollection<VersionOneWorkItem>>(DoRefreshTree), new object[] {workItems});
+	        else
+	            DoRefreshTree(workItems);
+	    }
+
+	    private void DoRefreshTree(ICollection<VersionOneWorkItem> workItems)
+	    {
+	        _list.Nodes.Clear();
+	        _list.Nodes.AddRange(GetAllNodes(workItems));
 	    }
 
 	    private void ForceReloadWorkItems(object sender, EventArgs eventArgs)
 	    {
-	        ReloadWorkItems(_workItemService.GetWorkItems());
+            RefreshTree(_workItemService.GetWorkItems(true));
 	    }
 
-	    private static ListViewItem[] Convert(IEnumerable<Workitem> workItems)
+	    public IEnumerable<VersionOneWorkItem> CheckedWorkItems
 	    {
-            return workItems.Select(i => new ListViewItem(i.DisplayID){SubItems = { i.Name }, Tag = i}).ToArray();
+            get { return (IEnumerable<VersionOneWorkItem>)(InvokeRequired ? Invoke(new Func<IEnumerable<VersionOneWorkItem>>(GetCheckedWorkItems)) : GetCheckedWorkItems()); }
 	    }
 
-	    public IEnumerable<Workitem> SelectedWorkItems
+        private IEnumerable<VersionOneWorkItem> GetCheckedWorkItems()
 	    {
-	        get { return (IEnumerable<Workitem>) (InvokeRequired ? Invoke(new Func<IEnumerable<Workitem>>(GetSelectedWorkItems)) : GetSelectedWorkItems()); }
+            return AllNodes().Where(i => i.Checked).Select(i => i.Tag).Cast<VersionOneWorkItem>();
 	    }
 
-	    private IEnumerable<Workitem> GetSelectedWorkItems()
-	    {
-	        return _list.Items.Cast<ListViewItem>().Where(i => i.Checked).Select(i => i.Tag).Cast<Workitem>();
-	    }
-
-	    public void ClearSelection()
+	    public void ClearCheckedWorkItems()
 	    {
             if(InvokeRequired)
-	            Invoke(new Action(DoClearSelection));
+	            Invoke(new Action(DoClearCheckedWorkItems));
             else
-                DoClearSelection();
+                DoClearCheckedWorkItems();
 	    }
 
-	    private void DoClearSelection()
+	    private void DoClearCheckedWorkItems()
 	    {
-	        foreach (ListViewItem item in _list.Items)
-	            item.Checked = false;
+	        foreach (var node in AllNodes())
+	            node.Checked = false;
+	    }
+
+	    private IEnumerable<TreeNode> AllNodes(TreeNodeCollection root = null)
+	    {
+	        foreach (TreeNode node in root ?? _list.Nodes)
+	        {
+	            yield return node;
+
+	            foreach (var child in AllNodes(node.Nodes))
+	                yield return child;
+	        }
 	    }
 	}
 }

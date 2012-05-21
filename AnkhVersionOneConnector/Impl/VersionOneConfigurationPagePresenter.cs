@@ -32,15 +32,11 @@ namespace AnkhVersionOneConnector.Impl
                 if (_view == null)
                 {
                     _view = new VersionOneConfigurationPage();
-                    _view.OnPageEvent += view_OnPageEvent;
+                    _view.OnPageEvent += (_, e) => base.ConfigurationPageChanged(e);
                 }
+
                 return _view;
             }
-        }
-
-        void view_OnPageEvent(object sender, ConfigPageEventArgs e)
-        {
-            base.ConfigurationPageChanged(e);
         }
 
         public IntPtr Handle

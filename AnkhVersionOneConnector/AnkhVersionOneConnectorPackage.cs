@@ -25,7 +25,7 @@ namespace AnkhVersionOneConnector
         /// </summary>
         public AnkhVersionOneConnectorPackage()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
         }
         
         /// <summary>
@@ -34,7 +34,7 @@ namespace AnkhVersionOneConnector
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
             base.Initialize();
 
             ((IServiceContainer) this).AddService(typeof(AnkhVersionOneIssueRepositoryConnector), 

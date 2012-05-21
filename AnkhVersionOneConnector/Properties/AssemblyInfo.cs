@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AnkhVersionOneIssueRepositoryConnector")]
+[assembly: AssemblyTitle("AnkhVersionOneConnector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Simone Busoli")]
-[assembly: AssemblyProduct("AnkhVersionOneIssueRepositoryConnector")]
+[assembly: AssemblyProduct("AnkhVersionOneConnector")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]   

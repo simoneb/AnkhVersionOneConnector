@@ -29,41 +29,11 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ColumnHeader Title;
-            System.Windows.Forms.ColumnHeader Id;
-            this._list = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            Title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this._list = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Title
-            // 
-            Title.Text = "Title";
-            Title.Width = 500;
-            // 
-            // Id
-            // 
-            Id.Text = "Id";
-            Id.Width = 81;
-            // 
-            // _list
-            // 
-            this._list.CheckBoxes = true;
-            this._list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            Id,
-            Title});
-            this._list.ContextMenuStrip = this.contextMenuStrip1;
-            this._list.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._list.FullRowSelect = true;
-            this._list.Location = new System.Drawing.Point(0, 0);
-            this._list.Name = "_list";
-            this._list.Size = new System.Drawing.Size(581, 141);
-            this._list.TabIndex = 0;
-            this._list.UseCompatibleStateImageBehavior = false;
-            this._list.View = System.Windows.Forms.View.Details;
             // 
             // contextMenuStrip1
             // 
@@ -79,6 +49,16 @@
             this.refreshListToolStripMenuItem.Text = "Refresh list";
             this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.ForceReloadWorkItems);
             // 
+            // _list
+            // 
+            this._list.CheckBoxes = true;
+            this._list.ContextMenuStrip = this.contextMenuStrip1;
+            this._list.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._list.Location = new System.Drawing.Point(0, 0);
+            this._list.Name = "_list";
+            this._list.Size = new System.Drawing.Size(581, 141);
+            this._list.TabIndex = 1;
+            // 
             // IssuesListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,8 +73,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.ListView _list;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem refreshListToolStripMenuItem;
+        private System.Windows.Forms.TreeView _list;
 	}
 }
