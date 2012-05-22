@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Linq;
 
@@ -19,7 +21,17 @@ namespace AnkhVersionOneConnector.Impl.Controls
 			InitializeComponent();
 
 	        Load += LoadWorkItems;
+            _list.MouseUp += ListOnMouseUp;
 		}
+
+	    private void ListOnMouseUp(object sender, MouseEventArgs mouseEventArgs)
+	    {
+            var selectedNode = _list.GetNodeAt(mouseEventArgs.X, mouseEventArgs.Y);
+
+            _list.SelectedNode = selectedNode;
+
+            contextMenuStrip1.Items[1].Enabled = selectedNode != null;
+	    }
 
 	    private void LoadWorkItems(object sender, EventArgs eventArgs)
 	    {
@@ -90,5 +102,15 @@ namespace AnkhVersionOneConnector.Impl.Controls
 	                yield return child;
 	        }
 	    }
+
+        private void openInVersionOneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedNode = _list.SelectedNode;
+
+            if (selectedNode == null)
+                return;
+
+            Process.Start(((VersionOneWorkItem) selectedNode.Tag).Url);
+        }
 	}
 }

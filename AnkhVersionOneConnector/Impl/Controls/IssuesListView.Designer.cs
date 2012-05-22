@@ -32,20 +32,22 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._list = new System.Windows.Forms.TreeView();
+            this.openInVersionOneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshListToolStripMenuItem});
+            this.refreshListToolStripMenuItem,
+            this.openInVersionOneToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(190, 70);
             // 
             // refreshListToolStripMenuItem
             // 
             this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
-            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.refreshListToolStripMenuItem.Text = "Refresh list";
             this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.ForceReloadWorkItems);
             // 
@@ -58,6 +60,13 @@
             this._list.Name = "_list";
             this._list.Size = new System.Drawing.Size(581, 141);
             this._list.TabIndex = 1;
+            // 
+            // openInVersionOneToolStripMenuItem
+            // 
+            this.openInVersionOneToolStripMenuItem.Name = "openInVersionOneToolStripMenuItem";
+            this.openInVersionOneToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.openInVersionOneToolStripMenuItem.Text = "Open in VersionOne...";
+            this.openInVersionOneToolStripMenuItem.Click += new System.EventHandler(this.openInVersionOneToolStripMenuItem_Click);
             // 
             // IssuesListView
             // 
@@ -76,5 +85,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem refreshListToolStripMenuItem;
         private System.Windows.Forms.TreeView _list;
+        private System.Windows.Forms.ToolStripMenuItem openInVersionOneToolStripMenuItem;
 	}
 }

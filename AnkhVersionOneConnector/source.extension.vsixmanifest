@@ -3,9 +3,10 @@
   <Identifier Id="7976548b-4eff-44a2-895d-584f62d207d0">
     <Name>AnkhSVN - VersionOne support for Visual Studio</Name>
     <Author>Simone Busoli</Author>
-    <Version>1.0</Version>
+    <Version>1.0.1</Version>
     <Description xml:space="preserve">Provides VersionOne issue tracking integration in Visual Studio for AnkhSVN</Description>
     <Locale>1033</Locale>
+    <MoreInfoUrl>https://github.com/simoneb/AnkhVersionOneConnector</MoreInfoUrl>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">
@@ -14,7 +15,7 @@
         <Edition>Pro</Edition>
       </VisualStudio>
     </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
+    <SupportedFrameworkRuntimeEdition MinVersion="2.0" MaxVersion="4.0" />
   </Identifier>
   <References>
     <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">

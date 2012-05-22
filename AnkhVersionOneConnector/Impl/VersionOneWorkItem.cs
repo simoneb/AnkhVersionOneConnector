@@ -11,6 +11,7 @@ namespace AnkhVersionOneConnector.Impl
             Parent = parent;
             DisplayId = self.DisplayID;
             Name = self.Name;
+            Url = self.URL;
 
             Children = children != null
                 ? children.Select(i => new VersionOneWorkItem(i, parent: this))
@@ -21,8 +22,8 @@ namespace AnkhVersionOneConnector.Impl
         public VersionOneWorkItem Parent { get; set; }
 
         public string Name { get; private set; }
-
         public string DisplayId { get; private set; }
+        public string Url { get; private set; }
 
         public bool HasParent
         {
